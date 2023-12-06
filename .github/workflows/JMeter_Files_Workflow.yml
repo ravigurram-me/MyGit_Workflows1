@@ -1,0 +1,22 @@
+name: Jmeter Test Workflow
+'on': ""
+jobs:
+  test_auto:
+    name: Jmeter Load Test Workflow
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Create Folder for reports
+        run: mkdir report
+      - name: JMeter
+        uses: QAInsights/PerfAction@v3.1
+        with:
+          test-plan-path: Jmeter_GitWorkflow.jmx
+          args: '-e -o report'
+      - name: Upload Report
+        if: '${{ always() }}'
+        uses: actions/upload-artifact@v3
+        with:
+          name: report
+          path: report
+          retention-days: 2
