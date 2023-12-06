@@ -1,8 +1,8 @@
-name: Jmeter Test Workflow
-'on': ""
+name: Jmeter test with files Workflow
+'on': push
 jobs:
   test_auto:
-    name: Jmeter Load Test Workflow
+    name: Jmeter Load Test Workflow with files
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -11,7 +11,7 @@ jobs:
       - name: JMeter
         uses: QAInsights/PerfAction@v3.1
         with:
-          test-plan-path: Jmeter_GitWorkflow.jmx
+          test-plan-path: Jmeter_GitWorkflow1.jmx
           args: '-e -o report'
       - name: Upload Report
         if: '${{ always() }}'
